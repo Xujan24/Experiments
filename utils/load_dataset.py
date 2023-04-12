@@ -15,7 +15,8 @@ class LoadDataset(Dataset):
     def __getitem__(self, index):
         item = self.dataset[index]
         idx, code, text = item
-        feature = torch.from_numpy(self.sentence_transformer.encode(text))
+        ## input will be <code> <code_descrition>;
+        feature = torch.from_numpy(self.sentence_transformer.encode(f'{code} {text}'))
         version = idx
         ground_truth = torch.tensor(
             get_code_idx(code, idx))

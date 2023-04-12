@@ -1,18 +1,15 @@
 import torch
 import itertools
-from torch.utils.data import DataLoader
 import numpy as np
 import pandas as pd
 from model.decoder import Decoder
-from utils.helpers import get_max_num_codes, toTensors, get_embeddings, get_code_idx
-from sentence_transformers import SentenceTransformer
-from utils.load_dataset import LoadDataset
+from utils.helpers import get_max_num_codes, toTensors, get_embeddings, get_code_idx, get_code
 
 if __name__ == "__main__":
     n_input = 768
     n_output = get_max_num_codes()
     device = "cuda:0" if torch.cuda.is_available() else "cpu"
-    trained_path = './trained/state.pth'
+    trained_path = './trained/state_new.pth'
     source_idx = 0
     target_idx = 1
 
@@ -55,6 +52,9 @@ if __name__ == "__main__":
 
     predicted = predicted.cpu().data.numpy()
 
+
+    df = pd.DataFrame({'source': get_code(source_code_gt, 0), 'gt': get_code(target_code_gt, 1), 'predicted': get_code(predicted, 1)})
+    df.to_csv('results.csv')
 
     correct = 0
     for i in range(len(target_code_gt)):

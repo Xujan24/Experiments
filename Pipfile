@@ -5,7 +5,6 @@ name = "pypi"
 
 [packages]
 requests = "*"
-torch = "*"
 sentence-transformers = "*"
 pandas = "*"
 

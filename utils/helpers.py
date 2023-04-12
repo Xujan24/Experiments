@@ -99,10 +99,14 @@ def get_code_idx(code: str, idx: int) -> Union[int, None]:
     codes = pd.read_csv(f'{base_dir}{versions[idx]}.csv', header=None).iloc[:, 0]
     codes = list(codes)
 
-    if code not in codes:
-        print(code)
-
     return codes.index(code) if code in codes  else None
+
+def get_code(idx: List[int], version: int) -> List[str]:
+    codes = pd.read_csv(f'{base_dir}{versions[version]}.csv', header=None).iloc[:, 0]
+    codes = list(codes)
+
+    return [codes[i] for i in idx]
+
 
 def get_embeddings(codes: List[str]) -> Tensor:
     embeddings = list(map(lambda x: sentence_transformer.encode(x), codes))

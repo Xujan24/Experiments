@@ -48,7 +48,7 @@ def train(start_epoch: int, epochs: int, model: Decoder, data_loader: DataLoader
             loss.backward()
             optimizer.step()
 
-            if batch % 5 == 0:
+            if batch % 2 == 0:
                 loss = loss.item()
                 print(f"[epoch: {t:>3d}] loss:{loss:>7f}")
         
@@ -66,12 +66,12 @@ def train(start_epoch: int, epochs: int, model: Decoder, data_loader: DataLoader
 if __name__ == "__main__":
     n_input = 768
     n_codes = get_max_num_codes()
-    learning_rate = 1e-5
-    batch_size = 128
+    learning_rate = 1e-4
+    batch_size = 64
     start_epoch = 0
-    epochs = 100
+    epochs = 1000
     device = "cuda:0" if torch.cuda.is_available() else "cpu"
-    trained_path = './trained/state.pth'
+    trained_path = './trained/state_new.pth'
 
     parser = argparse.ArgumentParser(description="options")
     parser.add_argument('-r', '--resume', type=bool)
