@@ -54,7 +54,7 @@ if __name__ == "__main__":
 
 
     df = pd.DataFrame({'source': get_code(source_code_gt, 0), 'gt': get_code(target_code_gt, 1), 'predicted': get_code(predicted, 1)})
-    df.to_csv('results.csv')
+    df.to_csv('results.csv', header=None, index=None)
 
     correct = 0
     for i in range(len(target_code_gt)):
